@@ -1,49 +1,77 @@
-// TODO: Include packages needed for this application
-
-// TODO: import the generateMarkdown function from utils/generateMarkdown.js
 const inquirer = require('inquirer');
-const fs =require('fs');
+const fs = require('fs');
 
-const generateMarkdown = require("./generateMarkdown");
-// TODO: Write code to get user input, generate markdown, and save it to a file.
+const generateMarkdown = require("./untitled folder/util/generateMarkdown");
+
 const init = () => {
-    inquirer
+  inquirer
     .prompt([
-       {
-            type:"input",
-            name: "title",
-            message:"what is the title of your project?",
-
-    },
-    {
-        type:"input",
-        name:"description",
-        message:"provide a short description eplaining the what, why and how",
-    },
-    {
-        type:"input",
-        name:"tableofcontents",
-        message:"provide a table of contents",
-    },
-    {
-        type:"input",
-        name:"installation",
-        message:"provide steps required to install your project",
-    },
-    {
-        type:"input",
-        name:"usage",
-        message:"provide instructions and examples for use",
-    },
-    {
-        type:"input",
-        name:"credits",
-        message: "list collaborators if any, list tutorials, videos followed or watched add links",
-    },
-    {
-        type:"input",
-        name:"license",
-        message:"let collaborators know what they can or cannot do choose a license"
-    }
-])
+      {
+        type: 'input',
+        name: 'projectitle',
+        message: 'What is the title of your project?',
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: 'Provide a short description explain the what, why and how of your app',
+      },
+      {
+        type: 'input',
+        name: 'tableofcontents',
+        message: 'tableofcontents(optional)',
+      },
+      {
+        type: 'input',
+        name: 'installation',
+        message: 'What steps are required to install your project?',
+      },
+      {
+        type: 'input',
+        name: 'usage',
+        message: 'provide instructions and examples for use',
+      },
+      {
+        type: 'input',
+        name: 'credits',
+        message: 'list collaborators if any, if you followed tutorials or any third party asssets list',
+      },
+      {
+          type:"input",
+          name:"License",
+          message:"let other developers know what they can and cannot do",
+      },
+      {
+          type:'input',
+          name:'badges',
+      },
+      {
+          type:'input',
+          name:'features',
+          message:'if your project has a lot of features list here'
+      },
+      {
+          type:'input',
+          name:'howtocontribute',
+          message:'if you would like other devs to contribute include guidelines',
+      },
+      {
+          types:'input',
+          name:'tests',
+          message:'if you ran test provide examples here'
+      }
+    ])
+    .then((answers) => {
+      const readme = generateMarkdown(answers);
+  
+      fs.writeFile('readme.md', readme, (err) =>
+        err ? console.log(err) : console.log('Successfully created readme!')
+      );
+    });
 }
+
+init();
+
+
+  
+
